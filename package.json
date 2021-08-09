@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "description": "package.json for team profile generator",
   "main": "index.js",
+  "type": "module",
   "directories": {
     "lib": "lib"
   },
   "dependencies": {
     "inquirer": "^8.1.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "type": "module"
+  },
   "scripts": {
     "test": "npm test"
   },
