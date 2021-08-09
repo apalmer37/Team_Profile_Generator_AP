@@ -1,0 +1,26 @@
+{
+  "name": "team_profile_generator_ap",
+  "version": "1.0.0",
+  "description": "package.json for team profile generator",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "inquirer": "^8.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apalmer37/Team_Profile_Generator_AP.git"
+  },
+  "author": "Alex Palmer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/apalmer37/Team_Profile_Generator_AP/issues"
+  },
+  "homepage": "https://github.com/apalmer37/Team_Profile_Generator_AP#readme"
+}
