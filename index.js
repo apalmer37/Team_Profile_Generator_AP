@@ -9,7 +9,7 @@ import inquirer from "inquirer";
 // import fs to generate HTML
 import * as fs from 'fs';
 // create html file path
-const htmlFilePath = './htmlOutput/index.html'
+const htmlFilePath = "./htmlOutput/index.html"
 
 // array of objects for team members
 const membersInput = [];
@@ -18,22 +18,22 @@ const membersInput = [];
 inquirer.prompt([
     // first questions
     {
-        name:"managerName",
+        name:"name",
         type:"input",
         message:"Enter manager's name",
     },
     {
-        name:"managerId",
+        name:"id",
         type:"input",
         message:"Enter manager's employee Id",
     },
     {
-        name:"managerEmail",
+        name:"email",
         type:"input",
         message:"Enter manager's email",
     },
     {
-        name:"managerOfficeNum",
+        name:"officeNum",
         type:"input",
         message:"Enter manager's office number",
     },
@@ -45,20 +45,66 @@ inquirer.prompt([
     },
 ])
 
-.then (function answerInput() {
+.then (answerInput => {
     // create mananer
-    let manager = new Manager(answerInput.managerName, answerInput.managerId, answerInput.managerEmail, answerInput.managerOfficeNum);
+    let manager = new Manager(answerInput.name, answerInput.id, answerInput.email, answerInput.officeNum);
     membersInput.push(manager);
     if(answerInput.addMember === "Intern"){
         addIntern();
     } else if(answerInput.addMember === "Engineer"){
         addEngineer();
     } else {
-        generateHTML();
+        generateIndexHTML();
     }
 })
 
 function addIntern(){
+    inquirer.prompt([
+        // prompt intern questions
+        {
+            name:"internName",
+            type:"input",
+            message:"Enter intern's name",
+        },
+        {
+            name:"internId",
+            type:"input",
+            message:"Enter intern's employee Id",
+        },
+        {
+            name:"internEmail",
+            type:"input",
+            message:"Enter intern's email",
+        },
+        {
+            name:"internSchool",
+            type:"input",
+            message:"Enter intern's school",
+        },
+        {
+            name:"addMember",
+            type:"list",
+            message:"Add team member?",
+            choices:["Engineer", "Intern", "No"]
+        },
+    ])
+
+    .then(answerInput => {
+        // create intern
+        let intern = new Intern(answerInput.internName, answerInput.internId, answerInput.internEmail, answerInput.internSchool);
+        // add to member array
+        membersInput.push(intern);
+        if(answerInput.addMember === "Intern"){
+            addIntern();
+        } else if(answerInput.addMember === "Engineer"){
+            addEngineer();
+        } else {
+            generateIndexHTML();
+        }
+    });
+}
+
+function addEngineer(){
     inquirer.prompt([
         // prompt engineer questions
         {
@@ -92,18 +138,18 @@ function addIntern(){
     .then(answerInput => {
         // create engineer
         let engineer = new Engineer(answerInput.engineerName, answerInput.engineerId, answerInput.engineerEmail, answerInput.engineerGithub);
+        // add to member array
         membersInput.push(engineer);
         if(answerInput.addMember === "Intern"){
             addIntern();
-        } else if(answers.addMember === "Engineer"){
+        } else if(answerInput.addMember === "Engineer"){
             addEngineer();
         } else {
-            generateHTML();
-
+            generateIndexHTML();
         }
     });
 }
 
-function generateHTML(){
-    fs.writeFileSync(htmlFilePath,"htmlOutput/index.html");
+function generateIndexHTML(){
+    fs.writeFileSync(htmlFilePath,"");
 };
