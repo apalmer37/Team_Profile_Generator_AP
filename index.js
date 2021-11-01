@@ -12,12 +12,11 @@ import * as fs from 'fs';
 const htmlFilePath = "./htmlOutput/index.html"
 
 
-// array of objects for team members
+// array of objects for team members created
 const membersInput = [];
 
-
+// initial prompted questions to create manager first
 inquirer.prompt([
-    // first questions
     {
         name:"name",
         type:"input",
@@ -47,9 +46,10 @@ inquirer.prompt([
 ])
 
 .then (answerInput => {
-    // create mananer
+    // create manager and add data to membersInput
     let manager = new Manager(answerInput.name, answerInput.id, answerInput.email, answerInput.officeNum);
     membersInput.push(manager);
+    // if statement to prompt adding an Inter, Engineer, or generate the HTML based on the selection from the last question "addMember"
     if(answerInput.addMember === "Intern"){
         addIntern();
     } else if(answerInput.addMember === "Engineer"){
@@ -152,7 +152,7 @@ function addEngineer(){
 }
 
 
-
+// Need beginning of html to remain consistant 
 function beginIndex(){
     return `<!DOCTYPE html>
     <html lang="en">
@@ -175,8 +175,8 @@ function beginIndex(){
 
             
 }
-
-function memberInputHTML(membersInput){
+// passing in the members from the memberInput array to html employee "cards"
+function managerInputHTML(membersInput){
     return `            <div class="card" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">
@@ -187,9 +187,48 @@ function memberInputHTML(membersInput){
       </h5>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item">ID: </li>
-      <li class="list-group-item">Email: </li>
-      <li class="list-group-item">Phone: </li>
+      <li class="list-group-item">ID: ${membersInput.getId()}  </li>
+      <li class="list-group-item">Email:${membersInput.getEmail()} </li>
+      <li class="list-group-item">Office Number:${membersInput.getOfficeNumber()} </li>
+
+    </ul>
+  </div>`;
+
+}
+
+function engineerInputHTML(membersInput){
+    return `            <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">
+          Employee: ${membersInput.getName()}
+          <br>
+          <br>
+          Engineer
+      </h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">ID: ${membersInput.getId()}  </li>
+      <li class="list-group-item">Email:${membersInput.getEmail()} </li>
+      <li class="list-group-item">Github:${membersInput.getGithub()} </li>
+    </ul>
+  </div>`;
+
+}
+
+function internInputHTML(membersInput){
+    return `            <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">
+          Employee: ${membersInput.getName()}
+          <br>
+          <br>
+          Intern
+      </h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">ID: ${membersInput.getId()}  </li>
+      <li class="list-group-item">Email:${membersInput.getEmail()} </li>
+      <li class="list-group-item">School:${membersInput.getSchool()} </li>
     </ul>
   </div>`;
 
@@ -206,7 +245,14 @@ function generateIndexHTML(){
     fs.writeFileSync(htmlFilePath,"");
     let indexHTML = beginIndex();
     for (var i in membersInput){
-        indexHTML += memberInputHTML(membersInput[i]);
+        var role = membersInput[i].getRole();
+        if (role === 'Manager') {
+            indexHTML += managerInputHTML(membersInput[i]);
+        } else if (role === 'Engineer') {
+            indexHTML += engineerInputHTML(membersInput[i]);
+        } else if (role === 'Intern') {
+            indexHTML += internInputHTML(membersInput[i]);
+        }
     }
 
     indexHTML += endingHTML();
