@@ -8,7 +8,8 @@
     "lib": "lib"
   },
   "dependencies": {
-    "inquirer": "^8.1.2"
+    "inquirer": "^8.1.2",
+    "jest": "^27.3.1"
   },
   "devDependencies": {
     "type": "module"
