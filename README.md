@@ -10,7 +10,7 @@
 * [Screenshot](#screenshot)
 
 ## Description
-build a Node.js command-line application that takes in information about employees on a software engineering team, then generates an HTML webpage that displays summaries for each person. 
+Created a content management system that utilizes a multitude of functions using CLI. You are able to output various tables that show departments, roles, employees, adding new employees to roles and departments, and updating a role for a specified employee. 
 
 
 ## Video
@@ -18,10 +18,11 @@ https://watch.screencastify.com/v/JV7EOFyRRqOuN48PwIuA
 
 
 ## Technologies
-* HTML
+* Mysql2
 * Inquirer
 * Node.js
-* Jest
+* CLI
+* Console.table
 
 
 
@@ -31,7 +32,3 @@ Alex Palmer
 
 ## License
 ISC
-
-
-## Screenshot
-<img src="/Users/AP/UR-Bootcamp/Team_Profile_Generator_AP/assets/screenshothw.png">
